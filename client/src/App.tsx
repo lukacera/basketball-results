@@ -1,30 +1,37 @@
-import { useState } from 'react'
 import { FaSearch } from "react-icons/fa";
-
-
+import CalendarDiv from "./components/CalendarDiv";
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <div className='bg-[#1c2632] grid grid-rows-[10%_auto]
-    min-h-screen h-auto text-white'>
-      {/* Header */}
+    <div className='grid grid-rows-[8%_auto] bg-mainBg
+    min-h-screen h-auto text-white font-mainFont'>
+
+      {/* Header div */}
       <div className='bg-headerBg flex items-center justify-around
       px-20'>
-        <h1 className='font-mainFont text-2xl font-bold'>
+
+        <h1 className='text-3xl font-bold text-textWhite'>
           BallScore
         </h1>
-        <div className='flex items-center bg-mainBg pl-5'>
+
+        <div className='flex items-center bg-secondaryBlueBoxes pl-5 rounded-xl'>
           < FaSearch />
-          <input type="text" className='bg-mainBg px-5 py-3'
+          <input type="text" className='bg-secondaryBlueBoxes pl-5 pr-16 py-3 outline-none
+          placeholder:text-[1.2rem] rounded-xl w-auto'
             autoComplete='off' placeholder='Search' />
         </div>
 
+        <div></div>
+
       </div>
       {/* Main div */}
-      <div className='bg-mainBg'>
-        <p>Div 2</p>
-      </div>
+      <main className='bg-mainBg w-[70%] mx-auto
+      grid grid-cols-[auto,1.6fr,1fr]'>
+
+        {/* Calendar div */}
+        <CalendarDiv />
+      </main>
+
     </div>
   )
 }

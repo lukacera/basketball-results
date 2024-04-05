@@ -6,10 +6,16 @@ export default {
   ],
   theme: {
     extend: {
-      backgroundColor: {
+      colors: {
         headerBg: "#2a3543",
-        mainBg: "#1c2632"
+        mainBg: "#131a21",
+        // Secondary blue boxes is for all boxes in main and couple 
+        // of other things
+        secondaryBlueBoxes: "#1c2632",
+        textWhite: "#FFF5EE",
+        primaryPurple: "#7a84ff"
       },
+
       fontFamily: {
         mainFont: ["Space Grotesk", "sans-serif"]
       }
@@ -17,4 +23,3 @@ export default {
   },
   plugins: [],
 }
-
