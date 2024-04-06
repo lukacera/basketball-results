@@ -77,3 +77,7 @@ abbr {
 .react-calendar__tile.react-calendar__month-view__days__day:hover {
     background-color: rgba(207, 211, 247, 0.5)
 }
+
+.selectedDate {
+    background-color: #7a84ff;
+}

@@ -1,25 +1,32 @@
-import React, { useEffect, useState } from "react"
+import React, { useContext } from "react"
 import { Calendar } from "react-calendar"
+import { DateContext } from "../hooks/DateContextHook";
 
 const CalendarDiv: React.FC = () => {
 
-    const [date, setDate] = useState<Date>(new Date())
+    const { selectedDate, setSelectedDate } = useContext(DateContext)
 
-    useEffect(() => {
-        console.log(date)
-    }, [date])
+
     return (
         <div className="grid grid-rows-auto h-[30%] max-h-[30rem]
     bg-secondaryBlueBoxes">
 
-            < Calendar
+            <Calendar
                 showNeighboringMonth={false}
-                value={date} />
+                value={selectedDate}
+                onClickDay={(value) => setSelectedDate(value)}
+                tileClassName={({ date }) => {
+                    return date.getDate() === selectedDate.getDate() &&
+                        date.getMonth() === selectedDate.getMonth() &&
+                        date.getFullYear() === selectedDate.getFullYear()
+                        ? 'selectedDate' : null;
+                }}
+            />
             <div className="border-t-[0.02rem] border-[#b8b8b8]
             py-4 pl-3 bg-secondaryBlueBoxes">
                 <p className="bg-primaryPurple max-w-[5em] text-center
                 text-[0.8rem] py-1 rounded-lg text-black font-bold"
-                    onClick={() => setDate(new Date())}>
+                    onClick={() => setSelectedDate(new Date())}>
                     Today
                 </p>
             </div>

@@ -1,14 +1,17 @@
 import { FaSearch } from "react-icons/fa";
 import CalendarDiv from "./components/CalendarDiv";
+import { DateContext } from "./hooks/DateContextHook";
+import { useContext } from "react";
 function App() {
 
+  const { selectedDate } = useContext(DateContext)
   return (
     <div className='grid grid-rows-[8%_auto] bg-mainBg
     min-h-screen h-auto text-white font-mainFont'>
 
       {/* Header div */}
       <div className='bg-headerBg flex items-center justify-around
-      px-20'>
+      px-20 sticky top-0 right-0'>
 
         <h1 className='text-3xl font-bold text-textWhite'>
           BallScore
@@ -26,12 +29,15 @@ function App() {
       </div>
       {/* Main div */}
       <main className='bg-mainBg w-[70%] mx-auto
-      grid grid-cols-[auto,1.6fr,1fr]'>
-        <div className="mt-5">
-          {/* Calendar div */}
-          <CalendarDiv />
-        </div>
+      grid grid-cols-[auto,1.6fr,1fr] mt-5'>
+        {/* Calendar div */}
+        <CalendarDiv />
 
+        <div className="text-center">
+          <p>
+            {selectedDate.toDateString()}
+          </p>
+        </div>
       </main>
 
     </div>
