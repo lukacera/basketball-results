@@ -8,6 +8,16 @@
 abbr {
     text-decoration: none;
 }
+
+
+.react-calendar {
+    display: grid;
+    grid-template-rows: 15% 85%;
+    max-height: 20rem;
+}
+.react-calendar__viewContainer {
+    background-color: #1c2632;
+}
 /* Remove arrows with 2 pointers */
 .react-calendar__navigation__arrow.react-calendar__navigation__next2-button {
     display: none;
@@ -22,13 +32,15 @@ abbr {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 90%;
+    width: 80%;
     margin: 0 auto;
-    padding-top: 10px;
+    padding: 10px;
 }
 .react-calendar__navigation__label {
     padding-top: 5px;
     font-weight: 600;
+    font-size: 1.2rem;
+    pointer-events: none;
 }
 
 .react-calendar__navigation__arrow.react-calendar__navigation__next-button {
@@ -48,18 +60,18 @@ abbr {
     color:rgba(255, 255, 255, 0.4);
     font-size: 0.8rem;
     text-align: center;
-
+    
 }   
-
-.react-calendar__month-view__days {
-    display: flex;
-    flex-wrap: wrap;
+.react-calendar__month-view__days{
+    background-color: #1c2632;
+    width: 20rem;
 }
-
 .react-calendar__tile.react-calendar__month-view__days__day {
-    padding: 3px;
     font-weight: 700;
     border-radius: 100%;
+    aspect-ratio: 1/1;
+    width: 0.5rem;
+    height: auto;
 }
 
 .react-calendar__tile.react-calendar__month-view__days__day:hover {
