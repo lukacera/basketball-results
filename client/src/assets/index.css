@@ -32,14 +32,14 @@ abbr {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 80%;
+    width: 95%;
     margin: 0 auto;
     padding: 10px;
 }
 .react-calendar__navigation__label {
-    padding-top: 5px;
+    padding-top: 10px;
     font-weight: 600;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     pointer-events: none;
 }
 

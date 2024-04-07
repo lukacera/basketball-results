@@ -29,7 +29,7 @@ function App() {
       </div>
       {/* Main div */}
       <main className='bg-mainBg w-[70%] mx-auto
-      grid grid-cols-[auto,1.6fr,1fr] mt-5'>
+      grid grid-cols-[auto,1.6fr,1fr] mt-10'>
         {/* Calendar div */}
         <CalendarDiv />
 
