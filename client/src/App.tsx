@@ -1,12 +1,13 @@
 import { FaSearch } from "react-icons/fa";
 import CalendarDiv from "./components/CalendarDiv";
-import { DateContext } from "./hooks/DateContextHook";
-import { useContext } from "react";
+
+import GamesContainer from "./components/GamesContainer";
+
 function App() {
 
-  const { selectedDate } = useContext(DateContext)
+
   return (
-    <div className='grid grid-rows-[8%_auto] bg-mainBg
+    <div className='grid grid-rows-[5rem_auto] bg-mainBg
     min-h-screen h-auto text-white font-mainFont'>
 
       {/* Header div */}
@@ -29,15 +30,14 @@ function App() {
       </div>
       {/* Main div */}
       <main className='bg-mainBg w-[70%] mx-auto
-      grid grid-cols-[auto,1.6fr,1fr] mt-10'>
+      grid grid-cols-[auto,1.6fr,1fr] gap-8 mt-10'>
+
         {/* Calendar div */}
         <CalendarDiv />
 
-        <div className="text-center">
-          <p>
-            {selectedDate.toDateString()}
-          </p>
-        </div>
+        {/* Games div */}
+        <GamesContainer />
+
       </main>
 
     </div>
