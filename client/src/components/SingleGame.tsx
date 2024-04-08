@@ -14,24 +14,41 @@ const SingleGame: React.FC<{ game: GameType }> = ({ game }) => {
         return null
     }
 
+    // Format date from isoString to dd.mm.yy format
+    const formattedDate = (isoDateString: string) => {
+        const date = new Date(isoDateString);
+        const day = date.getDate().toString().padStart(2, "");
+        const month = (date.getMonth() + 1).toString().padStart(2, " ");
+        const year = date.getFullYear().toString().slice(2).padStart(2);
+        return `${day}.${month}.${year}.`;
+    };
+
     return (
-        <div className="grid grid-cols-[12%_88%] text-[14px] font-sofiaSans
+        <div className="grid grid-cols-[17%_83%] text-[14px] font-sofiaSans
         h-auto">
             <div className="flex flex-col justify-center text-teamLostGray">
+                {game.date.slice(0, 10) !== new Date().toISOString().slice(0, 10) && (
+                    <span>
+                        {formattedDate(game.date)}
+                    </span>
+                )}
+                {(game.date.slice(0, 10) === new Date().toISOString().slice(0, 10)
+                    || game.status.short === "NS") && (
+                        <span>
+                            {game.time}
+                        </span>
+                    )}
+
                 <span>
-                    {game.time}
+                    {game.status.short}
                 </span>
-                <span>
-                    {game.status.long === "Game Finished" ? (
-                        <p>End</p>
-                    ) : null}
-                </span>
+
             </div>
 
-            <div className="grid grid-rows-2 gap-2 border-l-[0.1rem] border-primaryGray
+            <div className="grid grid-rows-2 gap-1 border-l-[0.1rem] border-primaryGray
             pl-2">
                 {/* Home team */}
-                <div className="grid grid-cols-[60%_20%_20%]">
+                <div className="grid grid-cols-[60%_30%_10%]">
                     <div className="flex items-center gap-3">
                         <img src={game.teams.home.logo}
                             className="aspect-square w-6" />
@@ -44,7 +61,7 @@ const SingleGame: React.FC<{ game: GameType }> = ({ game }) => {
                     </div>
 
                     {/* Score by quaters */}
-                    <div className="grid grid-cols-4 text-[0.8rem] items-center">
+                    <div className="grid grid-cols-5 text-[0.8rem] items-center">
                         <span
                             className={
                                 checkWinner(game.scores.home.quarter_1,
@@ -79,6 +96,14 @@ const SingleGame: React.FC<{ game: GameType }> = ({ game }) => {
                             }>
                             {game.scores.home.quarter_4}
                         </span>
+                        <span
+                            className={
+                                checkWinner(game.scores.home.over_time,
+                                    game.scores.away.over_time) === "home" ? "font-bold"
+                                    : "text-teamLostGray"
+                            }>
+                            {game.scores.home.over_time}
+                        </span>
                     </div>
 
                     <span
@@ -92,7 +117,7 @@ const SingleGame: React.FC<{ game: GameType }> = ({ game }) => {
                 </div>
 
                 {/* Away team */}
-                <div className="grid grid-cols-[60%_20%_20%]">
+                <div className="grid grid-cols-[60%_30%_10%]">
                     <div className="flex items-center gap-3">
                         <img src={game.teams.away.logo}
                             className="aspect-square w-6" />
@@ -105,7 +130,7 @@ const SingleGame: React.FC<{ game: GameType }> = ({ game }) => {
                     </div>
 
                     {/* Score by quaters */}
-                    <div className="grid grid-cols-4 text-[0.8rem] items-center">
+                    <div className="grid grid-cols-5 text-[0.8rem] items-center">
                         <span
                             className={
                                 checkWinner(game.scores.home.quarter_1,
@@ -139,6 +164,14 @@ const SingleGame: React.FC<{ game: GameType }> = ({ game }) => {
                                     : "text-teamLostGray"
                             }>
                             {game.scores.away.quarter_4}
+                        </span>
+                        <span
+                            className={
+                                checkWinner(game.scores.home.over_time,
+                                    game.scores.away.over_time) === "away" ? "font-bold"
+                                    : "text-teamLostGray"
+                            }>
+                            {game.scores.away.over_time}
                         </span>
                     </div>
 
