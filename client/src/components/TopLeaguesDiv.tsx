@@ -20,8 +20,8 @@ const TopLeaguesDiv: React.FC<{ games: GameType[] }> = ({ games }) => {
         topLeaguesID.includes(game.league.id)
     ))
     return (
-        <div className="my-7 mx-3 bg-mainBg min-h-[90%] px-5">
-            <h3 className="text-2xl font-bold text-start p-5">
+        <div className="my-7 mx-3 bg-mainBg min-h-[90%] px-5 rounded-xl">
+            <h3 className="text-[1.3rem] font-bold text-start p-5">
                 Top leagues
             </h3>
             <div className="flex flex-col gap-5">

@@ -10,8 +10,8 @@ export type GameType = {
     time: string, // hh:mm
     timestamp: number,
     timezone: string,
-    stage: string,
-    week: string, // Round of league
+    stage: string | null,
+    week: string | null, // Round of league
     status: GameStatus,
     league: LeagueType,
     country: CountryType,

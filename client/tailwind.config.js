@@ -19,7 +19,8 @@ export default {
       },
 
       fontFamily: {
-        mainFont: ["Space Grotesk", "sans-serif"]
+        mainFont: ["Space Grotesk", "sans-serif"],
+        sofiaSans: ["Sofia Sans", "sans-serif"]
       }
     },
   },
