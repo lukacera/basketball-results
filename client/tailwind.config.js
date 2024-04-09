@@ -14,8 +14,10 @@ export default {
         secondaryBlueBoxes: "#1c2632",
         textWhite: "#FFF5EE",
         primaryPurple: "#7a84ff",
+        primaryPurpleHighlight: "rgba(122, 132, 255, 0.25)",
         primaryGray: "rgba(255, 255, 255, 0.15)",
-        teamLostGray: "rgba(255, 255, 255, 0.4)"
+        teamLostGray: "rgba(255, 255, 255, 0.4)",
+        hoverDarkShade: "rgba(0,0,0,0.3)"
       },
 
       fontFamily: {

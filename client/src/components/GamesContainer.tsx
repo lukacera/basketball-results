@@ -1,32 +1,28 @@
-import React, { useState, useContext, useEffect } from "react"
-import { DateContext } from "../hooks/DateContextHook";
+import React, { useContext } from "react"
 import { GameType } from "../types/GameType"
-import { getGamesByDate } from "../api/getGamesByDate";
 import GamesByLeague from "./GamesByLeague";
+import { GamesContext } from "../hooks/GamesContextHook";
 
 const GamesContainer: React.FC = () => {
 
-    const { selectedDate } = useContext(DateContext)
-
-    const [games, setGames] = useState<GameType[]>([])
 
 
-
-
-    useEffect(() => {
-        const fetchGames = async () => {
-            try {
-                const fetchedGames: GameType[] = await getGamesByDate(selectedDate);
-                fetchedGames.sort((a, b) => a.country.name.localeCompare(b.country.name))
-                console.log(fetchedGames)
-                setGames(fetchedGames)
-            } catch (error) {
-                console.log("Error occured: " + error)
+    const { games } = useContext(GamesContext)
+    /*
+        useEffect(() => {
+            const fetchGames = async () => {
+                try {
+                    const fetchedGames: GameType[] = await getGamesByDate(selectedDate);
+                    fetchedGames.sort((a, b) => a.country.name.localeCompare(b.country.name))
+                    console.log(fetchedGames)
+                    setGames(fetchedGames)
+                } catch (error) {
+                    console.log("Error occured: " + error)
+                }
             }
-        }
-        fetchGames()
-    }, [selectedDate])
-
+            fetchGames()
+        }, [selectedDate])
+    */
     const topLeaguesID = [12, 117, 198, 120, 194, 2, 52, 40, 45];
 
     const objectTopLeagues: { [key: number]: GameType[] } = {};

@@ -2,8 +2,24 @@ import { FaSearch } from "react-icons/fa";
 import CalendarDiv from "./components/CalendarDiv";
 
 import GamesContainer from "./components/GamesContainer";
-
+import AllCountriesSidebar from "./components/AllCountriesSidebar";
 function App() {
+
+
+  /*
+    useEffect(() => {
+      const fetchLeagues = async () => {
+        try {
+          const fetchedData: LeagueType[] = await getAllLeagues()
+          setLeagues(fetchedData)
+        } catch (error) {
+          console.log("Error occured while fetching all leagues! " + error)
+        }
+      }
+  
+      fetchLeagues()
+    }, [])
+  */
 
 
   return (
@@ -30,10 +46,14 @@ function App() {
       </div>
       {/* Main div */}
       <main className='bg-mainBg w-[70%] mx-auto h-auto
-      grid grid-cols-[auto,1.6fr,1fr] gap-8 mt-10'>
+      grid grid-cols-[1fr,1.6fr,1fr] gap-8 mt-10'>
 
-        {/* Calendar div */}
-        <CalendarDiv />
+        <div className="flex flex-col gap-5">
+
+          <CalendarDiv />
+          <AllCountriesSidebar />
+
+        </div>
 
         {/* Games div */}
         <GamesContainer />
