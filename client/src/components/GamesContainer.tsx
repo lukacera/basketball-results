@@ -83,7 +83,7 @@ const GamesContainer: React.FC = () => {
             </div>
 
             {/* Other leagues, in sorted format */}
-            <div className="flex flex-col gap-5 pb-10">
+            <div className="flex flex-col gap-5 pb-10 pr-5">
                 {Object.keys(sortedObjectOtherLeagues).map((key: string) => {
                     if (sortedObjectOtherLeagues[key].length > 0) {
                         return (

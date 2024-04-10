@@ -8,7 +8,7 @@ const CalendarDiv: React.FC = () => {
 
 
     return (
-        <div className="grid grid-rows-auto h-[30%] max-h-[30rem]
+        <div className="grid grid-rows-[85%_15%] h-[30%] max-h-[30rem]
     bg-secondaryBlueBoxes">
 
             <Calendar

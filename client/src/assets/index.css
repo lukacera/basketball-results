@@ -63,10 +63,7 @@ abbr {
     text-align: center;
     
 }   
-.react-calendar__month-view__days{
-    background-color: #1c2632;
-    width: 20rem;
-}
+
 .react-calendar__tile.react-calendar__month-view__days__day {
     font-weight: 700;
     border-radius: 100%;

@@ -1,8 +1,17 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { GameType } from "../types/GameType";
+import { useInView } from "react-intersection-observer";
 
 const SingleGame: React.FC<{ game: GameType }> = ({ game }) => {
 
+    const [imgRef, inView] = useInView();
+
+    // State managment for checking if image is loaded
+    const [loaded, setLoaded] = useState(false);
+
+    useEffect(() => {
+        inView && !loaded && setLoaded(true)
+    }, [inView, loaded])
 
     const checkWinner = (homeScore: number | null, awayScore: number | null): "home" | "away" | "tie" | null => {
         if (homeScore !== null && awayScore !== null) {
@@ -50,8 +59,11 @@ const SingleGame: React.FC<{ game: GameType }> = ({ game }) => {
                 {/* Home team */}
                 <div className="grid grid-cols-[60%_30%_10%]">
                     <div className="flex items-center gap-3">
-                        <img src={game.teams.home.logo}
-                            className="aspect-square w-6" />
+                        <img
+                            src={loaded ? game.teams.home.logo : ""} // Lazy laoding
+                            className="aspect-square w-6"
+                            ref={imgRef}
+                        />
                         <p className={checkWinner(game.scores.home.total,
                             game.scores.away.total
                         ) === "home" ? "font-bold" : "text-teamLostGray"
@@ -119,8 +131,11 @@ const SingleGame: React.FC<{ game: GameType }> = ({ game }) => {
                 {/* Away team */}
                 <div className="grid grid-cols-[60%_30%_10%]">
                     <div className="flex items-center gap-3">
-                        <img src={game.teams.away.logo}
-                            className="aspect-square w-6" />
+                        <img
+                            src={loaded ? game.teams.away.logo : ""} // Lazy loading
+                            className="aspect-square w-6"
+                            ref={imgRef}
+                        />
                         <p className={checkWinner(game.scores.home.total,
                             game.scores.away.total
                         ) === "away" ? "font-bold" : "text-teamLostGray"
