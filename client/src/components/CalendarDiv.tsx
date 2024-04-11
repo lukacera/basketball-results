@@ -8,8 +8,8 @@ const CalendarDiv: React.FC = () => {
 
 
     return (
-        <div className="grid grid-rows-[85%_15%] h-[30%] max-h-[30rem]
-    bg-secondaryBlueBoxes">
+        <div className="grid grid-rows-[85%_15%] max-h-[30rem]
+    bg-secondaryBlueBoxes rounded-xl">
 
             <Calendar
                 showNeighboringMonth={false}
