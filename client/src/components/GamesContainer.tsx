@@ -1,11 +1,11 @@
-import React, { useContext } from "react"
+import React, { Dispatch, SetStateAction, useContext } from "react"
 import { GameType } from "../types/GameType"
 import GamesByLeague from "./GamesByLeague";
 import { GamesContext } from "../hooks/GamesContextHook";
 
-const GamesContainer: React.FC = () => {
-
-
+const GamesContainer: React.FC<{
+    setSelectedGame: Dispatch<SetStateAction<GameType | null>>
+}> = ({ setSelectedGame }) => {
 
     const { games } = useContext(GamesContext)
     /*
@@ -41,24 +41,34 @@ const GamesContainer: React.FC = () => {
             objectOtherLeagues[countryName] ? objectOtherLeagues[countryName].push(game)
                 : objectOtherLeagues[countryName] = [game]
         }
-
     });
+
 
     // Sort leagues by country name; in alphabetical order
     const otherLeaguesKeys = Object.keys(objectOtherLeagues);
 
+    // Sort keys by country name in ascending order [A - Z]
     otherLeaguesKeys.sort((a, b) => a.localeCompare(b))
-    const sortedObjectOtherLeagues: { [key: string]: GameType[] } = {};
+    const sortedObjectByCountries: { [key: string]: GameType[] } = {};
 
+    // Assign those sorted keys to new Object
     otherLeaguesKeys.forEach(key => {
-        sortedObjectOtherLeagues[key] = objectOtherLeagues[key];
+        sortedObjectByCountries[key] = objectOtherLeagues[key];
     });
 
+    const sortedObjectLeagues: { [key: string]: GameType[] } = {}
+
+    Object.keys(sortedObjectByCountries).forEach(key => {
+        sortedObjectByCountries[key].forEach(game => {
+            sortedObjectLeagues[game.league.name] ?
+                sortedObjectLeagues[game.league.name].push(game) :
+                sortedObjectLeagues[game.league.name] = [game]
+        })
+    })
 
     return (
         <div className="bg-secondaryBlueBoxes rounded-xl text-center
-        flex flex-col gap-5">
-
+        flex flex-col mb-16">
             {/* Top leagues container */}
             <div className="my-7 mx-3 bg-mainBg px-5 rounded-xl
             h-auto">
@@ -72,7 +82,9 @@ const GamesContainer: React.FC = () => {
                         if (objectTopLeagues[numericKey].length > 0) {
                             return (
                                 <div key={key}>
-                                    <GamesByLeague leagueGamesByIDOfLeague={objectTopLeagues[numericKey]} />
+                                    <GamesByLeague
+                                        setSelectedGame={setSelectedGame}
+                                        leagueGamesByIDOfLeague={objectTopLeagues[numericKey]} />
                                 </div>
                             );
                         } else {
@@ -83,12 +95,14 @@ const GamesContainer: React.FC = () => {
             </div>
 
             {/* Other leagues, in sorted format */}
-            <div className="flex flex-col gap-5 pb-10 pr-5">
-                {Object.keys(sortedObjectOtherLeagues).map((key: string) => {
-                    if (sortedObjectOtherLeagues[key].length > 0) {
+            <div className="flex flex-col gap-5 pb-10">
+                {Object.keys(sortedObjectLeagues).map((key: string) => {
+                    if (sortedObjectLeagues[key].length > 0) {
                         return (
                             <div key={key}>
-                                <GamesByLeague leagueGamesByIDOfLeague={sortedObjectOtherLeagues[key]} />
+                                <GamesByLeague
+                                    setSelectedGame={setSelectedGame}
+                                    leagueGamesByIDOfLeague={sortedObjectLeagues[key]} />
                             </div>
                         );
                     } else {
