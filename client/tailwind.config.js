@@ -17,7 +17,8 @@ export default {
         primaryPurpleHighlight: "rgba(122, 132, 255, 0.25)",
         primaryGray: "rgba(255, 255, 255, 0.15)",
         teamLostGray: "rgba(255, 255, 255, 0.4)",
-        hoverDarkShade: "rgba(0,0,0,0.3)"
+        hoverDarkShade: "rgba(0,0,0,0.3)",
+        primaryGreen: "#46c252"
       },
 
       fontFamily: {
