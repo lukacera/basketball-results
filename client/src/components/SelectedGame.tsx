@@ -8,28 +8,36 @@ const SelectedGame: React.FC<{
     setSelectedGame: Dispatch<SetStateAction<GameType | null>>
 }> = ({ selectedGame, setSelectedGame }) => {
 
-    let team1Wins: number = 0
-    let team2Wins: number = 0;
+    const [team1Wins, setTeam1Wins] = useState(0);
+    const [team2Wins, setTeam2Wins] = useState(0);
 
     const [H2H, setH2H] = useState<GameType[]>([])
+
 
     useEffect(() => {
         const calculateH2HWins = async () => {
             try {
                 let fetchedH2H: GameType[];
                 if (selectedGame) {
+                    console.log("Fetching h2h Score!")
+                    console.log("Team1: " + selectedGame.teams.home.id)
+                    console.log("Team2: " + selectedGame.teams.away.id)
                     fetchedH2H = await getH2HScore(selectedGame?.teams.home.id, selectedGame?.teams.away.id)
                     setH2H(fetchedH2H)
                 }
-            }
-            catch (err) {
-                console.log("Error occured " + err)
+            } catch (err) {
+                console.log("Error occurred " + err)
             }
         }
-        calculateH2HWins()
-        H2H.forEach(game => game.scores.away > game.scores.home ? team1Wins++ : team2Wins++)
-    }, [selectedGame, H2H, team1Wins, team2Wins])
+        calculateH2HWins();
+    }, [selectedGame?.teams.home.id, selectedGame?.teams.away.id]);
 
+    useEffect(() => {
+        // Calculate wins when H2H changes
+        H2H.forEach(game => {
+            game.scores.away > game.scores.home ? setTeam2Wins(prev => prev + 1) : setTeam1Wins(prev => prev + 1);
+        });
+    }, [H2H]);
     return (
         <div>
             {selectedGame && (

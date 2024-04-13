@@ -13,7 +13,9 @@ export const getH2HScore = async (team1ID: number, team2ID: number) => {
             return
         }
 
+
         const data = await response.json()
+        console.log(data.response)
         return data.response
 
     } catch (error) {
