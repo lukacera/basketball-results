@@ -8,8 +8,11 @@ const Standings: React.FC<{
 }> = ({ standings, setStandings }) => {
     if (standings) {
         return (
-            <div className="sticky top-[7.4rem] left-0 bg-secondaryBlueBoxes rounded-xl max-h-[50rem]">
-                <div className="flex justify-between items-center w-full px-5 pt-3">
+            <div className="sticky top-[7.4rem] left-0 
+            bg-secondaryBlueBoxes rounded-xl max-h-[50rem]
+            overflow-auto">
+                <div className="flex justify-between items-center 
+                w-full px-5 pt-3">
                     {standings[0] && (
                         <div className="flex items-center gap-3">
                             <img src={standings[0][0].league.logo} className="w-12 aspect-square" alt="League Logo" />
@@ -21,7 +24,7 @@ const Standings: React.FC<{
                         cursor={"pointer"}
                         onClick={() => setStandings([null])} />
                 </div>
-                <div className="flex flex-col px-5 py-3 gap-3 overflow-auto">
+                <div className="flex flex-col px-5 py-3 gap-3">
                     <div className="grid grid-cols-[50%_30%_20%] w-full text-teamLostGray">
                         <div className="flex gap-5">
                             <span>#</span>
@@ -43,6 +46,7 @@ const Standings: React.FC<{
                         {standings.map(standing =>
                             standing?.map(team => (
                                 <div
+                                    key={team.team.id}
                                     className="grid grid-cols-[50%_30%_20%] 
                                 w-full">
 
@@ -58,7 +62,7 @@ const Standings: React.FC<{
                                         <span>{team.team.name}</span>
                                     </div>
                                     <div className="flex justify-end gap-4 pr-10">
-                                        <span>
+                                        <span className="w-4 flex justify-center">
                                             {team.games.win.total}
                                         </span>
                                         <span>{team.games.lose.total}</span>

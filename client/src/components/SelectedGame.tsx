@@ -1,7 +1,8 @@
-import React, { Dispatch, SetStateAction } from "react"
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { RxCross2 } from "react-icons/rx";
 import { GameType } from "../types/GameType";
 import { checkWinner } from "../utils/checkWinner";
+import { getH2HScore } from "../api/getH2HScore";
 const SelectedGame: React.FC<{
     selectedGame: GameType | null,
     setSelectedGame: Dispatch<SetStateAction<GameType | null>>
@@ -10,17 +11,25 @@ const SelectedGame: React.FC<{
     let team1Wins: number = 0
     let team2Wins: number = 0;
 
-    const calculateH2HWins = () => {
-        const h2hGames: GameType[] = []
-        h2hGames.forEach(game => {
-            if (game.scores.home.total && game.scores.away.total) {
-                game.scores.home.total > game.scores.away.total ? team1Wins++ :
-                    game.scores.away.total > game.scores.home.total ? team2Wins++ : null
-            }
-        })
-    }
+    const [H2H, setH2H] = useState<GameType[]>([])
 
-    calculateH2HWins()
+    useEffect(() => {
+        const calculateH2HWins = async () => {
+            try {
+                let fetchedH2H: GameType[];
+                if (selectedGame) {
+                    fetchedH2H = await getH2HScore(selectedGame?.teams.home.id, selectedGame?.teams.away.id)
+                    setH2H(fetchedH2H)
+                }
+            }
+            catch (err) {
+                console.log("Error occured " + err)
+            }
+        }
+        calculateH2HWins()
+        H2H.forEach(game => game.scores.away > game.scores.home ? team1Wins++ : team2Wins++)
+    }, [selectedGame, H2H, team1Wins, team2Wins])
+
     return (
         <div>
             {selectedGame && (
@@ -48,12 +57,12 @@ const SelectedGame: React.FC<{
 
                             <div className="flex flex-col items-center justify-center h-full">
                                 {selectedGame.status.short === "NS" && (
-                                    <div>
+                                    <div className="grid place-items-center">
                                         <span className="font-bold">
                                             {selectedGame.time}
                                         </span>
                                         <span className="text-teamLostGray">
-                                            {selectedGame.date}
+                                            {selectedGame.date.slice(0, 10)}
                                         </span>
                                     </div>
                                 )}

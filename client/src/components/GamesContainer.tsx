@@ -70,29 +70,31 @@ const GamesContainer: React.FC<{
         <div className="bg-secondaryBlueBoxes rounded-xl text-center
         flex flex-col mb-16">
             {/* Top leagues container */}
-            <div className="my-7 mx-3 bg-mainBg px-5 rounded-xl
-            h-auto">
-                <h3 className="text-[1.3rem] font-bold text-start p-5">
-                    Top leagues
-                </h3>
+            {Object.keys(objectTopLeagues).length !== 0 && (
+                <div className="my-7 mx-3 bg-mainBg px-5 rounded-xl
+                h-auto">
+                    <h3 className="text-[1.3rem] font-bold text-start p-5">
+                        Top leagues
+                    </h3>
 
-                <div className="flex flex-col gap-5 pb-10">
-                    {Object.keys(objectTopLeagues).map((key: string) => {
-                        const numericKey: number = parseInt(key); // Parse key to number
-                        if (objectTopLeagues[numericKey].length > 0) {
-                            return (
-                                <div key={key}>
-                                    <GamesByLeague
-                                        setSelectedGame={setSelectedGame}
-                                        leagueGamesByIDOfLeague={objectTopLeagues[numericKey]} />
-                                </div>
-                            );
-                        } else {
-                            return null;
-                        }
-                    })}
+                    <div className="flex flex-col gap-5 pb-10">
+                        {Object.keys(objectTopLeagues).map((key: string) => {
+                            const numericKey: number = parseInt(key); // Parse key to number
+                            if (objectTopLeagues[numericKey].length > 0) {
+                                return (
+                                    <div key={key}>
+                                        <GamesByLeague
+                                            setSelectedGame={setSelectedGame}
+                                            leagueGamesByIDOfLeague={objectTopLeagues[numericKey]} />
+                                    </div>
+                                );
+                            } else {
+                                return null;
+                            }
+                        })}
+                    </div>
                 </div>
-            </div>
+            )}
 
             {/* Other leagues, in sorted format */}
             <div className="flex flex-col gap-5 pb-10">

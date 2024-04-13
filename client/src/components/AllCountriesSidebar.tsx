@@ -1,8 +1,11 @@
-import React from "react"
+import React, { Dispatch, SetStateAction } from "react"
 import { CountryType } from "../types/CountryType"
 import CountrySidebar from "./CountrySidebar";
+import { StandingsType } from "../types/StandingsType";
 
-const AllCountriesSidebar: React.FC = () => {
+const AllCountriesSidebar: React.FC<{
+    setStandings: Dispatch<SetStateAction<[StandingsType[] | null]>>
+}> = ({ setStandings }) => {
 
     const countries: CountryType[] = [
         {
@@ -491,7 +494,9 @@ const AllCountriesSidebar: React.FC = () => {
 
                 {sortedCountries.map((country) => (
                     <div key={country.id}>
-                        <CountrySidebar country={country} />
+                        <CountrySidebar
+                            setStandings={setStandings}
+                            country={country} />
                     </div>
                 ))}
 

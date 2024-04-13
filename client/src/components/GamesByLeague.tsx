@@ -1,16 +1,17 @@
-import React from "react"
+import React, { Dispatch, SetStateAction } from "react"
 import { GameType } from "../types/GameType";
 import SingleGame from "./SingleGame";
 
 const GamesByLeague: React.FC<{
-    leagueGamesByIDOfLeague: GameType[]
-}> = ({ leagueGamesByIDOfLeague }) => {
+    leagueGamesByIDOfLeague: GameType[],
+    setSelectedGame: Dispatch<SetStateAction<GameType | null>>
+}> = ({ leagueGamesByIDOfLeague, setSelectedGame }) => {
     return (
         <div className="flex flex-col gap-5">
-
+            <hr className="border-primaryGray" />
             {leagueGamesByIDOfLeague.length > 0 && (
                 <div className="flex flex-col gap-3">
-                    <div className="grid grid-cols-[17%_83%]">
+                    <div className="grid grid-cols-[17%_83%] ">
                         <div className="grid place-items-center">
                             {/* 
                                 Flag for ABA league is broken, so show logo of 
@@ -41,7 +42,9 @@ const GamesByLeague: React.FC<{
                         </div>
                     </div>
                     {leagueGamesByIDOfLeague.map(game => (
-                        <div key={game.id}>
+                        <div
+                            onClick={() => setSelectedGame(game)}
+                            key={game.id}>
                             <SingleGame game={game} />
                         </div>
                     ))}

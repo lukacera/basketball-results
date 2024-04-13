@@ -3,6 +3,13 @@ import CalendarDiv from "./components/CalendarDiv";
 
 import GamesContainer from "./components/GamesContainer";
 import AllCountriesSidebar from "./components/AllCountriesSidebar";
+
+import SelectedGame from "./components/SelectedGame";
+import { useState } from "react";
+import { GameType } from "./types/GameType";
+import { StandingsType } from "./types/StandingsType";
+import Standings from "./components/Standings";
+
 function App() {
 
 
@@ -21,7 +28,9 @@ function App() {
     }, [])
   */
 
+  const [selectedGame, setSelectedGame] = useState<GameType | null>(null)
 
+  const [standings, setStandings] = useState<[StandingsType[] | null]>([null])
   return (
     <div className='grid grid-rows-[5rem_auto] bg-mainBg
     min-h-screen h-auto text-white font-mainFont'>
@@ -45,18 +54,36 @@ function App() {
 
       </div>
       {/* Main div */}
-      <main className='bg-mainBg w-[70%] mx-auto h-auto
-      grid grid-cols-[1fr,1.6fr,1fr] gap-8 mt-10'>
+      <main className={`bg-mainBg w-[73%] mx-auto h-auto
+      grid  gap-8 mt-10
+      ${JSON.stringify(standings) === JSON.stringify([null])
+          ? `grid-cols-[1fr,1.6fr,1.2fr]` : "grid-cols-[2.6fr,1.2fr]"}`}>
 
-        <div className="flex flex-col gap-5">
+        {/* First column */}
+        {JSON.stringify(standings) === JSON.stringify([null]) && (
+          <div className="flex flex-col gap-5">
+            <CalendarDiv />
+            <AllCountriesSidebar setStandings={setStandings} />
+          </div>
+        )}
+        {JSON.stringify(standings) !== JSON.stringify([null]) && (
+          <Standings
+            standings={standings}
+            setStandings={setStandings} />
+        )}
 
-          <CalendarDiv />
-          <AllCountriesSidebar />
+        {/* Second column */}
+        {JSON.stringify(standings) === JSON.stringify([null]) && (
+          <GamesContainer setSelectedGame={setSelectedGame} />
+        )}
 
-        </div>
+        {/* Third column */}
+        {selectedGame && (
+          < SelectedGame
+            setSelectedGame={setSelectedGame}
+            selectedGame={selectedGame} />
+        )}
 
-        {/* Games div */}
-        <GamesContainer />
 
       </main>
 

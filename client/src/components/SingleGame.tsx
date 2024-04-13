@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { GameType } from "../types/GameType";
 import { useInView } from "react-intersection-observer";
-
+import { checkWinner } from "../utils/checkWinner";
 const SingleGame: React.FC<{ game: GameType }> = ({ game }) => {
 
     const [imgRef, inView] = useInView();
@@ -13,15 +13,6 @@ const SingleGame: React.FC<{ game: GameType }> = ({ game }) => {
         inView && !loaded && setLoaded(true)
     }, [inView, loaded])
 
-    const checkWinner = (homeScore: number | null, awayScore: number | null): "home" | "away" | "tie" | null => {
-        if (homeScore !== null && awayScore !== null) {
-            if (homeScore > awayScore) return "home"
-            else if (awayScore > homeScore) return "away"
-
-            return "tie"
-        }
-        return null
-    }
 
     // Format date from isoString to dd.mm.yy format
     const formattedDate = (isoDateString: string) => {
@@ -34,7 +25,7 @@ const SingleGame: React.FC<{ game: GameType }> = ({ game }) => {
 
     return (
         <div className="grid grid-cols-[17%_83%] text-[14px] font-sofiaSans
-        h-auto">
+        h-auto cursor-pointer hover:bg-hoverDarkShade pr-5">
             <div className="flex flex-col justify-center text-teamLostGray">
                 {game.date.slice(0, 10) !== new Date().toISOString().slice(0, 10) && (
                     <span>
@@ -48,9 +39,12 @@ const SingleGame: React.FC<{ game: GameType }> = ({ game }) => {
                         </span>
                     )}
 
-                <span>
-                    {game.status.short}
-                </span>
+                {["FT", "AOT"].includes(game.status.short) && (
+                    <span>
+                        {game.status.short}
+                    </span>
+                )}
+
 
             </div>
 

@@ -1,11 +1,17 @@
-import React, { useState, useContext } from "react"
+import React, { useState, useContext, Dispatch, SetStateAction } from "react"
 import { CountryType } from "../types/CountryType";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { LeaguesContext } from "../hooks/LeaguesContextHook";
 import { LeagueType } from "../types/LeagueType";
 import { GamesContext } from "../hooks/GamesContextHook";
+import { GameType } from "../types/GameType";
+import { StandingsType } from "../types/StandingsType";
+import { getStandings } from "../api/getStandings";
 
-const CountrySidebar: React.FC<{ country: CountryType }> = ({ country }) => {
+const CountrySidebar: React.FC<{
+    country: CountryType,
+    setStandings: Dispatch<SetStateAction<[StandingsType[] | null]>>
+}> = ({ country, setStandings }) => {
 
     const [dropdownIsOpen, setDropdownIsOpen] = useState<boolean>(false)
     const { leagues } = useContext(LeaguesContext)
@@ -16,13 +22,28 @@ const CountrySidebar: React.FC<{ country: CountryType }> = ({ country }) => {
         league.country.id === country.id
     ))
 
+    const numGamesByLeague: { [key: number]: GameType[] } = {};
+
 
     // Number of games in country
     let numGames = 0;
+
+    // Assign each game to appropiate league bucket
     games.forEach(game => {
+        numGamesByLeague[game.league.id] ? numGamesByLeague[game.league.id].push(game)
+            : numGamesByLeague[game.league.id] = [game]
+
         game.country.id === country.id ? numGames++ : null
     })
 
+    const handleSetStandings = async (leagueId: number) => {
+        try {
+            const fetchedStandings = await getStandings(leagueId)
+            setStandings(fetchedStandings)
+        } catch (error) {
+            console.log("Error occured while fetching standings! " + error)
+        }
+    }
     return (
         <>
             <div className={`grid grid-cols-[10%,70%,13%,7%] items-center 
@@ -55,11 +76,16 @@ const CountrySidebar: React.FC<{ country: CountryType }> = ({ country }) => {
                 <div className="bg-mainBg">
                     {filteredLeagues.map(league => (
                         <div className="hover:bg-hoverDarkShade
-                        pl-[4.5rem] pr-[1rem] py-1 cursor-pointer"
+                            pl-[4.5rem] pr-4 py-1 cursor-pointer flex justify-between"
+                            onClick={() => handleSetStandings(league.id)}
                             key={league.id}>
-                            <p>
+                            <span>
                                 {league.name}
-                            </p>
+                            </span>
+                            <span className="text-teamLostGray">
+                                {numGamesByLeague[league.id] ?
+                                    numGamesByLeague[league.id].length : null}
+                            </span>
                         </div>
                     ))}
                 </div>
