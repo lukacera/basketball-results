@@ -11,7 +11,8 @@ export const getScoreClassName = (
         return "text-red-600"; // If quarter is in play, apply red color
     }
 
-    // This means that we are checking total score
+    // If currentQShort is empty string, it means that we are checking
+    // total score 
     else if (currentQShort === "" &&
         !["FT", "AOT", "POST", "CANC", "SUSP", "AWD", "ABD"].includes(gameStatusShort)) {
         return "text-red-600"

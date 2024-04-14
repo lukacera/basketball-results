@@ -15,9 +15,6 @@ const SingleGame: React.FC<{ game: GameType }> = ({ game }) => {
         inView && !loaded && setLoaded(true)
     }, [inView, loaded])
 
-
-
-
     return (
         <div className="grid grid-cols-[17%_83%] text-[14px] font-sofiaSans
         h-auto cursor-pointer hover:bg-hoverDarkShade pr-5">
