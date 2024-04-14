@@ -8,11 +8,15 @@ const H2HGamesSingleTeamComp: React.FC<{
     team: "home" | "away"
 }> = ({ selectedGame, team1Wins, team2Wins, team }) => {
 
+    const teamName = team === "away" ? selectedGame.teams.away
+        : selectedGame.teams.home
     return (
-        <div className="flex items-center gap-2">
-            <img src={selectedGame.teams.home.logo}
+        <div className={`flex items-center gap-2 
+        ${team === "home" ? "flex-row" : "flex-row-reverse"}`}>
+            <img src={teamName.logo}
                 className="aspect-square rounded-full w-10" />
-            <div className="flex flex-col items-start">
+            <div className={`flex flex-col ${team === "home" ? "items-start"
+                : "items-end pr-2"}`}>
                 <span className={`font-bold ${team === "home" ?
                     team1Wins > team2Wins ?
                         "text-primaryPurple" : "text-primaryGreen" :
@@ -23,12 +27,12 @@ const H2HGamesSingleTeamComp: React.FC<{
 
                         : ""
                     }`}>
-                    {team1Wins}
+                    {team === "away" ? team2Wins : team1Wins}
                 </span>
                 <span>
-                    {selectedGame.teams.home.name.length > 8 ?
-                        `${selectedGame.teams.home.name.slice(0, 8)}...` :
-                        selectedGame.teams.home.name}
+                    {teamName.name.length > 8 ?
+                        `${teamName.name.slice(0, 8)}...` :
+                        teamName.name}
                 </span>
             </div>
         </div>

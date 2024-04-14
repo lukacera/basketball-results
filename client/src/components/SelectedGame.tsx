@@ -86,7 +86,12 @@ const SelectedGame: React.FC<{
                                             }>
                                                 {selectedGame.scores.home.total}
                                             </span>
-                                            <span>
+                                            <span
+                                                className={
+                                                    ["Q1", "Q2", "Q3", "Q4", "OT", "BT", "HT"]
+                                                        .includes(selectedGame.status.short) ? "text-red-600" :
+                                                        ""
+                                                }>
                                                 -
                                             </span>
                                             <span className={
@@ -98,9 +103,17 @@ const SelectedGame: React.FC<{
                                                 {selectedGame.scores.away.total}
                                             </span>
                                         </div>
-                                        <span>
-                                            {selectedGame.status.long}
-                                        </span>
+                                        {["Q1", "Q2", "Q3", "Q4", "OT", "BT", "HT"]
+                                            .includes(selectedGame.status.short) ? (
+                                            <span className="text-red-600">
+                                                {selectedGame.status.short}
+                                            </span>
+                                        ) : (
+                                            <span>
+                                                {selectedGame.status.long}
+                                            </span>
+                                        )}
+
                                     </div>
                                 )}
 

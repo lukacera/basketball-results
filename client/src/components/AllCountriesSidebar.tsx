@@ -2,6 +2,7 @@ import React, { Dispatch, SetStateAction } from "react"
 import { CountryType } from "../types/CountryType"
 import CountrySidebar from "./CountrySidebar";
 import { StandingsType } from "../types/StandingsType";
+import { BiSearch } from "react-icons/bi";
 
 const AllCountriesSidebar: React.FC<{
     setStandings: Dispatch<SetStateAction<[StandingsType[] | null]>>
@@ -491,7 +492,19 @@ const AllCountriesSidebar: React.FC<{
     return (
         <div className="bg-secondaryBlueBoxes rounded-lg">
             <div className="flex flex-col py-4">
-
+                <div>
+                    <span className="px-4 pt-[14px] pb-[6px] font-bold">
+                        Tournaments
+                    </span>
+                    <div className="flex items-center bg-mainBg m-3 border-[1px]
+                    border-primaryGray rounded-xl">
+                        <BiSearch
+                            className="my-2 mx-4 aspect-square w-6" />
+                        <input type="text"
+                            className="my-[10px] w-full bg-transparent outline-none"
+                            placeholder="Search country..." />
+                    </div>
+                </div>
                 {sortedCountries.map((country) => (
                     <div key={country.id}>
                         <CountrySidebar
