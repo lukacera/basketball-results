@@ -15,6 +15,7 @@ export const getStandings = async (leagueID: number) => {
 
         const data = await response.json()
 
+        // If league requires yyyy-yyyy format, instead of yyyy format
         if (data.response.length === 0) {
             const newResponse = await fetch(`https://api-basketball.p.rapidapi.com/standings?league=${leagueID}&season=2023`, {
                 headers: {
@@ -30,8 +31,6 @@ export const getStandings = async (leagueID: number) => {
             }
 
             const newResponseData = await newResponse.json()
-            console.log("This is newResponse data:")
-            console.log(newResponseData)
             return newResponseData.response
         }
 
