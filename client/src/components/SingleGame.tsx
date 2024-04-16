@@ -17,7 +17,7 @@ const SingleGame: React.FC<{ game: GameType }> = ({ game }) => {
 
     return (
         <div className="grid grid-cols-[17%_83%] text-[14px] font-sofiaSans
-        h-auto cursor-pointer hover:bg-hoverDarkShade pr-5">
+        h-[56px] cursor-pointer hover:bg-hoverDarkShade pr-5">
             <div className="flex flex-col justify-center text-teamLostGray">
                 {game.date.slice(0, 10) !== new Date().toISOString().slice(0, 10) && (
                     <span>
@@ -30,7 +30,12 @@ const SingleGame: React.FC<{ game: GameType }> = ({ game }) => {
                             {game.time}
                         </span>
                     )}
-
+                {"NS" === game.status.short &&
+                    game.date.slice(0, 10) === new Date().toISOString().slice(0, 10) && (
+                        <span>
+                            -
+                        </span>
+                    )}
                 {["FT", "AOT"].includes(game.status.short) && (
                     <span>
                         {game.status.short}
