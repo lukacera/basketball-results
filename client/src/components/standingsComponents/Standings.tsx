@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { StandingsType } from "../types/StandingsType";
+import { StandingsType } from "../../types/StandingsType";
 import { RxCross2 } from "react-icons/rx";
 import SelectedGroup from "./SelectedGroup";
 import StandingsDropdown from "./StandingsDropdown";
@@ -43,9 +43,9 @@ const Standings: React.FC<{
             <div className="bg-secondaryBlueBoxes h-auto mb-10">
                 {/* Header of table */}
                 <div className="flex justify-between items-center 
-                w-full px-5 py-3 bg-gradient-to-r from-primaryPurple to-headerBg">
+                w-full px-5 py-3">
                     {standings[0] && (
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-10">
                             <img src={standings[0].league.logo}
                                 className="w-[88px] aspect-square" />
                             <div className="flex flex-col justify-start">

@@ -1,8 +1,7 @@
 import React, { LegacyRef } from "react"
-import { GameType } from "../types/GameType";
-import { checkWinner } from "../utils/checkWinner";
-import { getScoreClassName } from "../utils/getScoreClassName";
-
+import { GameType } from "../../../types/GameType";
+import { checkWinner } from "../../../utils/checkWinner";
+import { getScoreClassName } from "../../../utils/getScoreClassName";
 const SingleGameTeam: React.FC<{
     loaded: boolean,
     game: GameType,

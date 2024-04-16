@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, useContext } from "react"
-import { GameType } from "../types/GameType"
+import { GameType } from "../../types/GameType"
 import GamesByLeague from "./GamesByLeague";
-import { GamesContext } from "../hooks/GamesContextHook";
+import { GamesContext } from "../../hooks/GamesContextHook";
 
 const GamesContainer: React.FC<{
     setSelectedGame: Dispatch<SetStateAction<GameType | null>>

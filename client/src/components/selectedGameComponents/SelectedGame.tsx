@@ -1,11 +1,11 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { RxCross2 } from "react-icons/rx";
-import { GameType } from "../types/GameType";
-import { checkWinner } from "../utils/checkWinner";
-import { getH2HScore } from "../api/getH2HScore";
-import { formattedDate } from "../utils/formatDate";
+import { GameType } from "../../types/GameType";
+import { checkWinner } from "../../utils/checkWinner";
+import { getH2HScore } from "../../api/getH2HScore";
+import { formattedDate } from "../../utils/formatDate";
 import SelectedGameSingleTeamScores from "./SelectedGameSingleTeamScores";
-import { getScoreClassName } from "../utils/getScoreClassName";
+import { getScoreClassName } from "../../utils/getScoreClassName";
 import H2HGamesSingleTeamComp from "./H2HGamesSingleTeamComp";
 
 const SelectedGame: React.FC<{

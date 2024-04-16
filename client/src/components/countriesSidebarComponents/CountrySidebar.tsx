@@ -1,12 +1,12 @@
 import React, { useState, useContext, Dispatch, SetStateAction } from "react"
-import { CountryType } from "../types/CountryType";
+import { CountryType } from "../../types/CountryType";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-import { LeaguesContext } from "../hooks/LeaguesContextHook";
-import { LeagueType } from "../types/LeagueType";
-import { GamesContext } from "../hooks/GamesContextHook";
-import { GameType } from "../types/GameType";
-import { StandingsType } from "../types/StandingsType";
-import { getStandings } from "../api/getStandings";
+import { LeaguesContext } from "../../hooks/LeaguesContextHook";
+import { LeagueType } from "../../types/LeagueType";
+import { GamesContext } from "../../hooks/GamesContextHook";
+import { GameType } from "../../types/GameType";
+import { StandingsType } from "../../types/StandingsType";
+import { getStandings } from "../../api/getStandings";
 
 const CountrySidebar: React.FC<{
     country: CountryType,

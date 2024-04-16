@@ -1,5 +1,5 @@
 import React from "react"
-import { StandingsType } from "../types/StandingsType";
+import { StandingsType } from "../../types/StandingsType";
 
 const SelectedGroup: React.FC<{
     standings: StandingsType[]

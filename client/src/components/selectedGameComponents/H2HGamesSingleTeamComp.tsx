@@ -1,5 +1,5 @@
 import React from "react"
-import { GameType } from "../types/GameType";
+import { GameType } from "../../types/GameType";
 
 const H2HGamesSingleTeamComp: React.FC<{
     selectedGame: GameType,

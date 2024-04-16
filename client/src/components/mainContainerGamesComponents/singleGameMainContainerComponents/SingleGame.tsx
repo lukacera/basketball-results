@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react"
-import { GameType } from "../types/GameType";
 import { useInView } from "react-intersection-observer";
 import SingleGameTeam from "./SingleGameTeam";
-import { formattedDate } from "../utils/formatDate";
-
+import { GameType } from "../../../types/GameType";
+import { formattedDate } from "../../../utils/formatDate";
 const SingleGame: React.FC<{ game: GameType }> = ({ game }) => {
 
     const [imgRef, inView] = useInView();

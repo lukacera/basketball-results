@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction } from "react"
-import { GameType } from "../types/GameType";
-import SingleGame from "./SingleGame";
+import { GameType } from "../../types/GameType";
+import SingleGame from "./singleGameMainContainerComponents/SingleGame";
 
 const GamesByLeague: React.FC<{
     leagueGamesByIDOfLeague: GameType[],

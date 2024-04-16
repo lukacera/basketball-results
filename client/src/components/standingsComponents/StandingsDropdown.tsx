@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useState } from "react"
-import { StandingsType } from "../types/StandingsType";
+import { StandingsType } from "../../types/StandingsType";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 const StandingsDropdown: React.FC<{

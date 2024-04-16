@@ -1,9 +1,9 @@
 import React, { ChangeEvent, Dispatch, SetStateAction, useState } from "react"
-import { CountryType } from "../types/CountryType"
+import { CountryType } from "../../types/CountryType"
 import CountrySidebar from "./CountrySidebar";
-import { StandingsType } from "../types/StandingsType";
+import { StandingsType } from "../../types/StandingsType";
 import { BiSearch } from "react-icons/bi";
-import { countries } from "../helpers/standingsFetched";
+import { countries } from "../../helpers/standingsFetched";
 
 const AllCountriesSidebar: React.FC<{
     setStandings: Dispatch<SetStateAction<StandingsType[] | null>>

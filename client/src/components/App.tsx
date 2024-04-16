@@ -1,12 +1,12 @@
 import CalendarDiv from "./CalendarDiv";
-import GamesContainer from "./GamesContainer";
-import AllCountriesSidebar from "./AllCountriesSidebar";
+import GamesContainer from "./mainContainerGamesComponents/GamesContainer";
+import AllCountriesSidebar from "./countriesSidebarComponents/AllCountriesSidebar";
 
-import SelectedGame from "./SelectedGame";
+import SelectedGame from "./selectedGameComponents/SelectedGame";
 import { useState } from "react";
 import { GameType } from "../types/GameType";
 import { StandingsType } from "../types/StandingsType";
-import Standings from "./Standings";
+import Standings from "./standingsComponents/Standings";
 
 function App() {
 

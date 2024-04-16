@@ -1,6 +1,6 @@
 import React from "react";
-import { GameType } from "../types/GameType";
-import { getScoreClassName } from "../utils/getScoreClassName";
+import { GameType } from "../../types/GameType";
+import { getScoreClassName } from "../../utils/getScoreClassName";
 
 const SelectedGameSingleTeamScores: React.FC<{
   selectedGame: GameType,
