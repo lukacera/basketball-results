@@ -25,8 +25,8 @@ const CalendarDiv: React.FC = () => {
             <div className="border-t-[0.02rem] border-[#b8b8b8]
             py-4 pl-3 bg-secondaryBlueBoxes">
                 <p className="bg-primaryPurple max-w-[5em] text-center
-                text-[0.8rem] py-1 rounded-lg text-black font-bold"
-                    onClick={() => setSelectedDate(new Date())}>
+                text-[0.8rem] py-1 rounded-lg text-black font-bold cursor-pointer"
+                    onClick={() => window.location.reload()}>
                     Today
                 </p>
             </div>
