@@ -10,7 +10,7 @@ import { getStandings } from "../api/getStandings";
 
 const CountrySidebar: React.FC<{
     country: CountryType,
-    setStandings: Dispatch<SetStateAction<[StandingsType[] | null]>>
+    setStandings: Dispatch<SetStateAction<StandingsType[] | null>>
 }> = ({ country, setStandings }) => {
 
     const [dropdownIsOpen, setDropdownIsOpen] = useState<boolean>(false)
@@ -39,7 +39,8 @@ const CountrySidebar: React.FC<{
     const handleSetStandings = async (leagueId: number) => {
         try {
             const fetchedStandings = await getStandings(leagueId)
-            setStandings(fetchedStandings)
+
+            fetchedStandings.length > 0 && setStandings(fetchedStandings)
         } catch (error) {
             console.log("Error occured while fetching standings! " + error)
         }

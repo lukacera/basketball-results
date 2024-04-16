@@ -43,7 +43,7 @@ const SelectedGroup: React.FC<{
                                 {team.points.for - team.points.against}
                             </span>
                         </div>
-                        <span className="text-end w-full">
+                        <span className="text-center pl-6">
                             {team.games.win.percentage}
                         </span>
                     </div>

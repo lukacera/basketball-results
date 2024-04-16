@@ -31,12 +31,12 @@ export const getStandings = async (leagueID: number) => {
             }
 
             const newResponseData = await newResponse.json()
-            console.log(newResponseData.response[0][0])
+            console.log(newResponseData.response[0])
             return newResponseData.response[0]
         }
 
 
-        console.log(data.response[0][0])
+        console.log(data.response[0])
         return data.response[0]
     } catch (error) {
         console.log("Error occured while fetching games " + error)

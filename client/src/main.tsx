@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
+import App from './components/App.tsx'
 import "./assets/index.css"
 import { DateProvider } from './hooks/DateContextHook.tsx'
 import { LeagueProvider } from "./hooks/LeaguesContextHook";

@@ -18,7 +18,7 @@ const SingleGameTeam: React.FC<{
             <div className="flex items-center gap-3">
                 <img
                     src={loaded ? teamNameTeams.logo : ""} // Lazy laoding
-                    className="aspect-square w-6"
+                    className="aspect-square w-5"
                     ref={imgRef}
                 />
                 <p className={checkWinner(teamNameScores.total,

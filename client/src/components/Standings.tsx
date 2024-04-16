@@ -1,31 +1,88 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { StandingsType } from "../types/StandingsType";
 import { RxCross2 } from "react-icons/rx";
+import SelectedGroup from "./SelectedGroup";
+import StandingsDropdown from "./StandingsDropdown";
 
 const Standings: React.FC<{
-    standings: [StandingsType[] | null],
-    setStandings: Dispatch<SetStateAction<[StandingsType[] | null]>>
+    standings: StandingsType[] | null,
+    setStandings: Dispatch<SetStateAction<StandingsType[] | null>>
 }> = ({ standings, setStandings }) => {
+    /*
+        Standings are going to be grouped by groups
+        {
+            "Group A" : [Team1, Team2...]
+            "Group B" : [Team6, Team9 ...]
+            ...
+        }
+
+    */
+    const [standingsGroupedByGroup, setStandingsGroupedByGroup] = useState<{ [key: string]: StandingsType[] }>({});
+    const [selGroup, setSelGroup] = useState<string | number>(0)
+
+    console.log(standings)
+    useEffect(() => {
+        if (standings) {
+            const groupedStandings = standings.reduce((acc, team) => {
+                const groupName = team.group.name;
+                acc[groupName] ? acc[groupName].push(team) : acc[groupName] = [team];
+                return acc;
+            }, {} as { [key: string]: StandingsType[] });
+
+            setStandingsGroupedByGroup(groupedStandings);
+
+            // Access the first group's standings if it exists
+            const firstGroupStandings = Object.keys(groupedStandings)[0];
+            firstGroupStandings && setSelGroup(firstGroupStandings);
+        }
+    }, [standings]);
+
     if (standings) {
+
         return (
-            <div className="sticky top-[7.4rem] left-0 
-            bg-secondaryBlueBoxes rounded-xl max-h-[50rem]
-            overflow-auto">
+            <div className="bg-secondaryBlueBoxes h-auto mb-10">
+                {/* Header of table */}
                 <div className="flex justify-between items-center 
-                w-full px-5 pt-3">
+                w-full px-5 py-3 bg-gradient-to-r from-primaryPurple to-headerBg">
                     {standings[0] && (
                         <div className="flex items-center gap-3">
-                            <img src={standings[0][0].league.logo} className="w-12 aspect-square" alt="League Logo" />
-                            <h3>{standings[0][0].league.name}</h3>
+                            <img src={standings[0].league.logo}
+                                className="w-[88px] aspect-square" />
+                            <div className="flex flex-col justify-start">
+                                <h3 className="font-bold text-[1.5rem]">
+                                    {standings[0].league.name}
+                                </h3>
+                                <div className="flex items-center gap-2">
+                                    {standings[0].country.name !== "Europe" && (
+                                        <img src={standings[0].country.flag || ""}
+                                            className="aspect-square w-8 rounded-full" />
+
+                                    )}
+                                    <span className="font-bold">
+                                        {standings[0].country.name}
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     )}
                     <RxCross2
                         size={25}
                         cursor={"pointer"}
-                        onClick={() => setStandings([null])} />
+                        onClick={() => setStandings(null)} />
                 </div>
+                {/* Main part of table */}
                 <div className="flex flex-col px-5 py-3 gap-3">
-                    <div className="grid grid-cols-[50%_30%_20%] w-full text-teamLostGray">
+
+                    <h2 className="text-center text-[1.3rem]">
+                        Table
+                    </h2>
+                    <StandingsDropdown
+                        selGroup={selGroup}
+                        setSelGroup={setSelGroup}
+                        standings={standings}
+                        standingsGroupedByGroup={standingsGroupedByGroup} />
+                    <div className="grid grid-cols-[40%_32%_28%] w-full
+                    text-teamLostGray">
                         <div className="flex gap-5">
                             <span>#</span>
                             <span>Team</span>
@@ -35,51 +92,25 @@ const Standings: React.FC<{
                             <span>L</span>
                         </div>
                         <div className="flex justify-between w-full">
-                            <span className="w-full text-center pl-10">Form</span>
+                            <div className="flex items-center gap-4">
+                                <span>
+                                    For
+                                </span>
+                                <span>
+                                    Against
+                                </span>
+                                <span>
+                                    +-
+                                </span>
+                            </div>
                             <span className="text-end w-full pr-4">
                                 %
                             </span>
                         </div>
                     </div>
                     <hr className="border-primaryGray" />
-                    <div className="flex flex-col gap-2">
-                        {standings.map(standing =>
-                            standing?.map(team => (
-                                <div
-                                    key={team.team.id}
-                                    className="grid grid-cols-[50%_30%_20%] 
-                                w-full">
-
-                                    {/* Team Logo and name */}
-                                    <div className="flex gap-2 items-center">
-                                        <span className="rounded-full 
-                                        bg-primaryGreen aspect-square w-7 
-                                        text-black flex justify-center 
-                                        items-center">
-                                            {team.position}
-                                        </span>
-                                        <img src={team.team.logo} className="aspect-square w-6" alt="Team Logo" />
-                                        <span>{team.team.name}</span>
-                                    </div>
-                                    <div className="flex justify-end gap-4 pr-10">
-                                        <span className="w-4 flex justify-center">
-                                            {team.games.win.total}
-                                        </span>
-                                        <span>{team.games.lose.total}</span>
-                                    </div>
-                                    {/* Container for team's form */}
-                                    <div className="grid grid-cols-[70%_30%]">
-                                        <div className="text-black flex justify-center w-full text-[0.8rem]">
-                                            {team.form?.split("").map((result, index) => (
-                                                <span key={index} className={`${result === "W" ? "bg-primaryGreen" : "bg-red-600"} p-[10px] h-4 aspect-square flex justify-center items-center`}>{result}</span>
-                                            ))}
-                                        </div>
-                                        <span className="text-end w-full">{team.games.win.percentage}</span>
-                                    </div>
-                                </div>
-                            ))
-                        )}
-                    </div>
+                    < SelectedGroup
+                        standings={standingsGroupedByGroup[selGroup]} />
                 </div>
             </div>
         );
