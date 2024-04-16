@@ -20,7 +20,6 @@ const Standings: React.FC<{
     const [standingsGroupedByGroup, setStandingsGroupedByGroup] = useState<{ [key: string]: StandingsType[] }>({});
     const [selGroup, setSelGroup] = useState<string | number>(0)
 
-    console.log(standings)
     useEffect(() => {
         if (standings) {
             const groupedStandings = standings.reduce((acc, team) => {
@@ -73,14 +72,17 @@ const Standings: React.FC<{
                 {/* Main part of table */}
                 <div className="flex flex-col px-5 py-3 gap-3">
 
-                    <h2 className="text-center text-[1.3rem]">
+                    <h2 className="text-center text-[1.3rem] font-semibold">
                         Table
                     </h2>
-                    <StandingsDropdown
-                        selGroup={selGroup}
-                        setSelGroup={setSelGroup}
-                        standings={standings}
-                        standingsGroupedByGroup={standingsGroupedByGroup} />
+                    {Object.keys(standingsGroupedByGroup).length > 1 &&
+                        <StandingsDropdown
+                            selGroup={selGroup}
+                            setSelGroup={setSelGroup}
+                            standings={standings}
+                            standingsGroupedByGroup={standingsGroupedByGroup} />
+                    }
+
                     <div className="grid grid-cols-[40%_32%_28%] w-full
                     text-teamLostGray">
                         <div className="flex gap-5">
@@ -93,19 +95,11 @@ const Standings: React.FC<{
                         </div>
                         <div className="flex justify-between w-full">
                             <div className="flex items-center gap-4">
-                                <span>
-                                    For
-                                </span>
-                                <span>
-                                    Against
-                                </span>
-                                <span>
-                                    +-
-                                </span>
+                                <span>For</span>
+                                <span>Against</span>
+                                <span>+-</span>
                             </div>
-                            <span className="text-end w-full pr-4">
-                                %
-                            </span>
+                            <span className="text-end w-full pr-4">%</span>
                         </div>
                     </div>
                     <hr className="border-primaryGray" />

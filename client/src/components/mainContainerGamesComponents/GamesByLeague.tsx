@@ -1,11 +1,24 @@
 import React, { Dispatch, SetStateAction } from "react"
 import { GameType } from "../../types/GameType";
 import SingleGame from "./singleGameMainContainerComponents/SingleGame";
+import { StandingsType } from "../../types/StandingsType";
+import { getStandings } from "../../api/getStandings";
 
 const GamesByLeague: React.FC<{
     leagueGamesByIDOfLeague: GameType[],
-    setSelectedGame: Dispatch<SetStateAction<GameType | null>>
-}> = ({ leagueGamesByIDOfLeague, setSelectedGame }) => {
+    setSelectedGame: Dispatch<SetStateAction<GameType | null>>,
+    setStandings: Dispatch<SetStateAction<StandingsType[] | null>>
+}> = ({ leagueGamesByIDOfLeague, setSelectedGame, setStandings }) => {
+
+    // Standings are fetched by league ID
+    const handleSettingStandings = async () => {
+        try {
+            const fetchedStandings = await getStandings(leagueGamesByIDOfLeague[0].league.id)
+            setStandings(fetchedStandings)
+        } catch (error) {
+            console.log("Error occured while fetching standings! " + error)
+        }
+    }
     return (
         <div className="flex flex-col gap-5">
             <hr className="border-primaryGray" />
@@ -34,7 +47,9 @@ const GamesByLeague: React.FC<{
                             <span className="text-teamLostGray">
                                 {leagueGamesByIDOfLeague[0].country.name}
                             </span>
-                            <span className="hover:text-primaryPurple cursor-pointer">
+                            <span onClick={() => handleSettingStandings()}
+                                className="hover:text-primaryPurple 
+                            cursor-pointer">
                                 {leagueGamesByIDOfLeague[0].league.name}
                             </span>
                         </div>

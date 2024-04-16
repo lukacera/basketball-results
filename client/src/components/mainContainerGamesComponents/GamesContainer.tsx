@@ -2,10 +2,12 @@ import React, { Dispatch, SetStateAction, useContext } from "react"
 import { GameType } from "../../types/GameType"
 import GamesByLeague from "./GamesByLeague";
 import { GamesContext } from "../../hooks/GamesContextHook";
+import { StandingsType } from "../../types/StandingsType";
 
 const GamesContainer: React.FC<{
-    setSelectedGame: Dispatch<SetStateAction<GameType | null>>
-}> = ({ setSelectedGame }) => {
+    setSelectedGame: Dispatch<SetStateAction<GameType | null>>,
+    setStandings: Dispatch<SetStateAction<StandingsType[] | null>>
+}> = ({ setSelectedGame, setStandings }) => {
 
     const { games } = useContext(GamesContext)
 
@@ -70,6 +72,7 @@ const GamesContainer: React.FC<{
                                 return (
                                     <div key={key}>
                                         <GamesByLeague
+                                            setStandings={setStandings}
                                             setSelectedGame={setSelectedGame}
                                             leagueGamesByIDOfLeague={objectTopLeagues[numericKey]} />
                                     </div>
@@ -89,6 +92,7 @@ const GamesContainer: React.FC<{
                         return (
                             <div key={key}>
                                 <GamesByLeague
+                                    setStandings={setStandings}
                                     setSelectedGame={setSelectedGame}
                                     leagueGamesByIDOfLeague={sortedObjectLeagues[key]} />
                             </div>
