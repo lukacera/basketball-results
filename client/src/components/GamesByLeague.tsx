@@ -14,29 +14,27 @@ const GamesByLeague: React.FC<{
                     <div className="grid grid-cols-[17%_83%] ">
                         <div className="grid place-items-center">
                             {/* 
-                                Flag for ABA league is broken, so show logo of 
-                                the league
-                                For other cases, show flag if it exists, if not,
-                                show logo of the league
+                                There is no flag for Europe, so use 
+                                league logos instead
                             */}
                             <img src={
-                                leagueGamesByIDOfLeague[0].league.id === 198 ?
+                                leagueGamesByIDOfLeague[0].country.name === "Europe" ?
                                     leagueGamesByIDOfLeague[0].league.logo :
 
                                     leagueGamesByIDOfLeague[0].country.flag ?
                                         leagueGamesByIDOfLeague[0].country.flag :
                                         leagueGamesByIDOfLeague[0].league.logo
                             }
-                                className="aspect-square rounded-full w-8"
+                                className="aspect-square rounded-full w-7"
                             />
                         </div>
                         {/* League name and country */}
-                        <div className="flex flex-col items-start text-[0.9rem]
-                font-mainFont">
+                        <div className="flex flex-col items-start text-[0.8rem]
+                        font-mainFont">
                             <span className="text-teamLostGray">
                                 {leagueGamesByIDOfLeague[0].country.name}
                             </span>
-                            <span>
+                            <span className="hover:text-primaryPurple cursor-pointer">
                                 {leagueGamesByIDOfLeague[0].league.name}
                             </span>
                         </div>
