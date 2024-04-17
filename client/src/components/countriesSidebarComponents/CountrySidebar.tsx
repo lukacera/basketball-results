@@ -1,10 +1,11 @@
-import React, { useState, Dispatch, SetStateAction, useContext } from "react"
+import React, { useState, Dispatch, SetStateAction, useContext, useEffect } from "react"
 import { CountryType } from "../../types/CountryType";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { StandingsType } from "../../types/StandingsType";
 import CountrySidebarDropdownLeagues from "./CountrySidebarDropdownLeagues";
 import { GameType } from "../../types/GameType";
 import { GamesContext } from "../../hooks/GamesContextHook";
+import { useInView } from "react-intersection-observer";
 
 const CountrySidebar: React.FC<{
     country: CountryType,
@@ -15,6 +16,14 @@ const CountrySidebar: React.FC<{
     const { games } = useContext(GamesContext)
 
     const numGamesByLeague: { [key: number]: GameType[] } = {};
+
+    const [imgRef, inView] = useInView() // Used for Lazy loading of flags
+    const [loaded, setLoaded] = useState<boolean>(false)
+
+    useEffect(() => {
+        inView && !loaded && setLoaded(true)
+    }, [inView, loaded])
+
 
     // Number of games in country
     let numGames = 0;
@@ -34,9 +43,12 @@ const CountrySidebar: React.FC<{
             ${!dropdownIsOpen && `hover:bg-hoverDarkShade`} 
             ${dropdownIsOpen && `bg-primaryPurpleHighlight`}`}
                 onClick={() => setDropdownIsOpen(!dropdownIsOpen)}>
+
                 <img
-                    src={country.flag ? country.flag : "https://www.badensports.com/cdn/shop/products/BX6E-02E_High_Large_SIDE_2000x.png?v=1697043481"}
+                    src={!loaded ? "" :
+                        country.flag ? country.flag : "https://www.badensports.com/cdn/shop/products/BX6E-02E_High_Large_SIDE_2000x.png?v=1697043481"}
                     className="aspect-square w-9 rounded-full"
+                    ref={imgRef}
                 />
                 <span className="pl-5 max-w-[14rem]">
                     {country.name}
