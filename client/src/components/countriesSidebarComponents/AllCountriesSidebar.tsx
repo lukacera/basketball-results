@@ -1,14 +1,27 @@
-import React, { ChangeEvent, Dispatch, SetStateAction, useState } from "react"
+import React, { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from "react"
 import { CountryType } from "../../types/CountryType"
 import CountrySidebar from "./CountrySidebar";
 import { StandingsType } from "../../types/StandingsType";
 import { BiSearch } from "react-icons/bi";
-import { countries } from "../../helpers/standingsFetched";
+import { getAllCountries } from "../../api/getAllCountries";
 
 const AllCountriesSidebar: React.FC<{
     setStandings: Dispatch<SetStateAction<StandingsType[] | null>>
 }> = ({ setStandings }) => {
 
+    const [countries, setCountries] = useState<CountryType[]>([])
+
+    useEffect(() => {
+        const fetchCountries = async () => {
+            try {
+                const fetchData = await getAllCountries()
+                setCountries(fetchData)
+            } catch (error) {
+                console.log("Error occured while fetching countries! " + error)
+            }
+        }
+        fetchCountries()
+    }, [])
     const sortedCountries = countries.sort((a: CountryType, b: CountryType) => (
         a.name.localeCompare(b.name)
     ))
