@@ -29,7 +29,7 @@ const CountrySidebar: React.FC<{
     let numGames = 0;
 
     // Assign each game to appropiate league bucket
-    games.forEach(game => {
+    games && games.forEach(game => {
         numGamesByLeague[game.league.id] ? numGamesByLeague[game.league.id].push(game)
             : numGamesByLeague[game.league.id] = [game]
 

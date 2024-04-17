@@ -22,6 +22,7 @@ const AllCountriesSidebar: React.FC<{
         }
         fetchCountries()
     }, [])
+
     const sortedCountries = countries.sort((a: CountryType, b: CountryType) => (
         a.name.localeCompare(b.name)
     ))

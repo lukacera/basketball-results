@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useContext, useState } from "react"
 import { Calendar } from "react-calendar"
 import { DateContext } from "../hooks/DateContextHook";
 
@@ -6,7 +6,22 @@ const CalendarDiv: React.FC = () => {
 
     const { selectedDate, setSelectedDate } = useContext(DateContext)
 
+    const [clickable, setClickable] = useState<boolean>(true)
 
+    /* 
+    This function is used for handling click on month day of calendar
+    It has 500 ms delay, so that user must wait 0.5s before 
+    monthday becomes clickable again
+    */
+    const handleClick = (value: Date) => {
+        if (clickable) {
+            setSelectedDate(value)
+            setClickable(false)
+            setTimeout(() => {
+                setClickable(true)
+            }, 500)
+        }
+    }
     return (
         <div className="grid grid-rows-[85%_15%] max-h-[30rem]
     bg-secondaryBlueBoxes rounded-xl">
@@ -14,7 +29,7 @@ const CalendarDiv: React.FC = () => {
             <Calendar
                 showNeighboringMonth={false}
                 value={selectedDate}
-                onClickDay={(value) => setSelectedDate(value)}
+                onClickDay={(value) => handleClick(value)}
                 tileClassName={({ date }) => {
                     return date.getDate() === selectedDate.getDate() &&
                         date.getMonth() === selectedDate.getMonth() &&
