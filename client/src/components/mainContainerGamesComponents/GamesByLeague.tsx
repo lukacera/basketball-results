@@ -1,8 +1,9 @@
-import React, { Dispatch, SetStateAction } from "react"
+import React, { Dispatch, SetStateAction, useState, useEffect } from "react"
 import { GameType } from "../../types/GameType";
 import SingleGame from "./singleGameMainContainerComponents/SingleGame";
 import { StandingsType } from "../../types/StandingsType";
 import { getStandings } from "../../api/getStandings";
+import { useInView } from "react-intersection-observer";
 
 const GamesByLeague: React.FC<{
     leagueGamesByIDOfLeague: GameType[],
@@ -10,6 +11,12 @@ const GamesByLeague: React.FC<{
     setStandings: Dispatch<SetStateAction<StandingsType[] | null>>
 }> = ({ leagueGamesByIDOfLeague, setSelectedGame, setStandings }) => {
 
+    const [imgRef, inView] = useInView() // Used for Lazy loading of flags
+    const [loaded, setLoaded] = useState<boolean>(false)
+
+    useEffect(() => {
+        inView && !loaded && setLoaded(true)
+    }, [inView, loaded])
     // Standings are fetched by league ID
     const handleSettingStandings = async () => {
         try {
@@ -31,14 +38,16 @@ const GamesByLeague: React.FC<{
                                 league logos instead
                             */}
                             <img src={
-                                leagueGamesByIDOfLeague[0].country.name === "Europe" ?
-                                    leagueGamesByIDOfLeague[0].league.logo :
+                                !loaded ? "" :
+                                    leagueGamesByIDOfLeague[0].country.name === "Europe" ?
+                                        leagueGamesByIDOfLeague[0].league.logo :
 
-                                    leagueGamesByIDOfLeague[0].country.flag ?
-                                        leagueGamesByIDOfLeague[0].country.flag :
-                                        leagueGamesByIDOfLeague[0].league.logo
+                                        leagueGamesByIDOfLeague[0].country.flag ?
+                                            leagueGamesByIDOfLeague[0].country.flag :
+                                            leagueGamesByIDOfLeague[0].league.logo
                             }
                                 className="aspect-square rounded-full w-7"
+                                ref={imgRef}
                             />
                         </div>
                         {/* League name and country */}
