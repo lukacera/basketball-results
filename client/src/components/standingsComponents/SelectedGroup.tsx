@@ -4,7 +4,6 @@ import { StandingsType } from "../../types/StandingsType";
 const SelectedGroup: React.FC<{
     standings: StandingsType[]
 }> = ({ standings }) => {
-    console.log(standings)
     return (
         <div className="flex flex-col gap-2">
             {standings && standings.map(team =>

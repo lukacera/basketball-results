@@ -9,9 +9,7 @@ const AllCountriesSidebar: React.FC<{
     setStandings: Dispatch<SetStateAction<StandingsType[] | null>>
 }> = ({ setStandings }) => {
 
-
-
-    const sortedCountries = countries.sort((a, b) => (
+    const sortedCountries = countries.sort((a: CountryType, b: CountryType) => (
         a.name.localeCompare(b.name)
     ))
 
