@@ -2,7 +2,8 @@
 
 Simple UI for displaying basketball leagues and games scores
 
-# Tech stack: React, TS, JS, Tailwind CSS, HTML, CSS
+# Tech stack: 
+React, TS, JS, Tailwind CSS, HTML, CSS
 
 # Features
 
