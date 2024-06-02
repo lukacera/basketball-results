@@ -9,8 +9,7 @@ export const getAllCountries = async () => {
         })
 
         if (!response.ok) {
-            console.log("Response is not ok!")
-            return
+            return false
         }
 
         const data = await response.json()
